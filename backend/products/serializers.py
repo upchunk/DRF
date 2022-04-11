@@ -1,3 +1,4 @@
+from itertools import product
 from rest_framework import serializers
 
 from .models import Product
@@ -17,5 +18,13 @@ class ProductSerializers(serializers.ModelSerializer):
 
     def get_my_discount(self, obj):
         # obj.user -> user.username
-        return obj.get_discount()
+        if not hasattr(obj, 'id'):
+            return None
+        if not isinstance(obj, product):
+            return None
+        
+        # try:
+        #     return obj.get_discount()
+        # except:
+        #     return None
         
